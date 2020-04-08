@@ -1,4 +1,4 @@
-## What is this
+# What is this
 This is console app for measuring pages loading speed. 
 It is based on Google PageSpeedOnline API https://developers.google.com/speed/docs/insights/v5/get-started.
  
@@ -9,10 +9,10 @@ some parameters for each of it in YAML format.
 
 * `firstMeaningfulPaint` (sec) measures when primary content of page is visible. More: https://web.dev/first-meaningful-paint
 * `timeToInteractive` (sec) measures when page is becoming fully interactive. More: https://web.dev/interactive
-* `speedIndex` (0-100 points) measures how quickly content is displayed. More: https://web.dev/speed-index/
+* `speedIndex` (sec) measures how quickly content is displayed. More: https://web.dev/speed-index/
 * `firstContentfulPaint` (sec) measures when first piece of DOM is rendered. More: https://web.dev/first-contentful-paint/
 
-## Inapp help:
+# Inapp help:
 ```
 Usage of SiteSpeed:
      -apiKey string
@@ -36,5 +36,5 @@ Usage of SiteSpeed:
            can be surrounded with double quotes (").
 ```
 
-## How to use it
+# How to use it
 You can use command `go build` and then run resulting binary.
