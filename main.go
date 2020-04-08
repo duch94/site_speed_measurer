@@ -21,7 +21,7 @@ type SiteSpeed struct {
 	firstContentfulPaint float64
 }
 
-func (ss SiteSpeed) GetYaml() string {
+func (ss *SiteSpeed) GetYaml() string {
 	res := fmt.Sprintf(`- date: %s
   url: %s
   firstMeaningfulPaint: %f
@@ -66,7 +66,7 @@ If it is empty (default value), then output to STDOUT.`
 	sites := loadSites(*filePathPtr)
 	ch := make(chan SiteSpeed)
 	for i := range sites {
-		go measureLoadingSpeed(sites[i], ch, *apiKeyPtr)
+		go measureLoadingSpeed(sites[i], ch, apiKeyPtr)
 		time.Sleep(dur)
 	}
 	var speeds []SiteSpeed
@@ -78,7 +78,7 @@ If it is empty (default value), then output to STDOUT.`
 }
 
 func outputSiteSpeeds(siteSpeeds []SiteSpeed, output string) {
-	outputString := ""
+	outputString := "---\n"
 	for i := range siteSpeeds {
 		outputString += siteSpeeds[i].GetYaml() + "\n\n"
 	}
@@ -157,8 +157,9 @@ func parseSiteSpeed(jsonToParse map[string]map[string]map[string]map[string]stri
 	}
 }
 
-func measureLoadingSpeed(url string, ch chan SiteSpeed, apiKey string) {
-	pageSpeedUrl := fmt.Sprintf("https://www.googleapis.com/pagespeedonline/v5/runPagespeed?key=%s&url=%s", apiKey, url)
+func measureLoadingSpeed(url string, ch chan SiteSpeed, apiKeyPtr *string) {
+	pageSpeedUrl := fmt.Sprintf("https://www.googleapis.com/pagespeedonline/v5/runPagespeed?key=%s&url=%s",
+		*apiKeyPtr, url)
 	log.Printf("Measuring loading speed for url=%s", url)
 	resp, err := http.Get(pageSpeedUrl)
 	log.Printf("Performed GET request to url=%s", pageSpeedUrl)
