@@ -35,3 +35,9 @@ jobs:
 
     - name: Test
       run: go test -v .
+    
+    - name: Publish binary
+      uses: actions/upload-artifact@v2
+      with:
+        name: site_speed_measurer
+        path: site_speed_measurer
