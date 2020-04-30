@@ -35,7 +35,12 @@ jobs:
 
     - name: Test
       run: go test -v .
-    
+      
+  publish_bniary:
+    name: Publish binary
+    runs-on: ubuntu-latest
+    steps:
+  
     - name: Publish binary
       uses: actions/upload-artifact@v2
       with:
